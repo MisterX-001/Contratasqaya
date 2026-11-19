@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CONTRATASQA</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f8;--cd:#fff;--tx:#14213d;--mu:#5d6985;--bd:#d3dae8;--pr:#1e6fd0;--pt:#fff;--gr:#15803d;--rd:#dc2626;--gy:#8b94a8;--tl:#0b7f70;--gl:#1e6fd01f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1420;--cd:#172036;--tx:#eef2fb;--mu:#a3afc9;--bd:#2b3856;--pr:#4da3ff;--pt:#06121f;--gr:#1f9d55;--rd:#ef4444;--gy:#566079;--tl:#12a08c;--gl:#4da3ff24;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1420;--cd:#172036;--tx:#eef2fb;--mu:#a3afc9;--bd:#2b3856;--pr:#4da3ff;--pt:#06121f;--gr:#1f9d55;--rd:#ef4444;--gy:#566079;--tl:#12a08c;--gl:#4da3ff24;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--tx);font:16px/1.4 Archivo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center;align-items:center}
+#app{width:100%;max-width:430px;height:100%;max-height:900px;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:500px){#app{border:1px solid var(--bd);border-radius:28px;box-shadow:0 12px 40px #0003}}
+header{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 48px;border-bottom:1px solid var(--bd);font-weight:800;letter-spacing:.06em;background:var(--cd)}
+main{flex:1;overflow-y:auto;padding:16px}
+nav{display:flex;border-top:1px solid var(--bd);background:var(--cd)}
+nav button{flex:1;padding:12px;font-size:22px;background:none;border:0;cursor:pointer;opacity:.5}
+nav button+button{border-left:1px solid var(--bd)}
+nav button.on{opacity:1;background:var(--gl)}
+button{font:inherit;color:inherit}
+.bk{position:absolute;left:10px;background:none;border:0;color:var(--pr);font-weight:600;cursor:pointer;letter-spacing:0}
+.bell{position:absolute;right:12px;background:none;border:0;font-size:22px;cursor:pointer}
+.bdg{position:absolute;top:-6px;right:-6px;background:var(--rd);color:#fff;border-radius:99px;font-size:11px;padding:0 6px;line-height:17px}
+.lg{width:28px;height:28px;border-radius:7px}
+.btn{display:block;width:100%;padding:14px;border-radius:12px;border:2px solid var(--pr);background:var(--pr);color:var(--pt);font-weight:800;letter-spacing:.05em;cursor:pointer}
+.btn.o{background:transparent;color:var(--pr)}
+.btn.gr{background:var(--gr);border-color:var(--gr);color:#fff}
+.btn.rd{background:var(--rd);border-color:var(--rd);color:#fff}
+.btn.gy{background:var(--gy);border-color:var(--gy);color:#fff;cursor:default}
+.btn.s{padding:10px;margin-top:10px}
+label{display:block;font-weight:600;margin:14px 0 6px}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--bd);border-radius:10px;background:var(--cd);color:var(--tx);font:inherit}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:12px}
+.row>.btn{flex:1}
+.av{display:grid;place-items:center;border-radius:50%;background:#1e78d8;overflow:hidden;flex:none}
+.pill{margin-left:auto;background:var(--tl);color:#fff;border-radius:99px;padding:2px 10px;font-weight:800;font-size:14px;white-space:nowrap}
+.mu{color:var(--mu)}
+.st{text-align:right;margin:6px 0}
+.st span{font-size:26px;cursor:pointer;color:var(--gy)}
+.st span.f{color:#f5b301}
+.chip{padding:8px 16px;border:1px solid var(--bd);background:var(--cd);border-radius:10px;font-weight:600;font-size:14px;cursor:pointer}
+.chip.on{background:var(--pr);color:var(--pt);border-color:var(--pr)}
+.ck{display:flex;gap:10px;align-items:center;margin:8px 0;font-weight:400}
+.ck input{width:auto}
+.big{display:flex;align-items:center;width:100%;height:88px;background:var(--cd);border:1px solid var(--bd);border-radius:16px;margin-bottom:14px;padding:0;cursor:pointer;text-align:left}
+.big i{font-style:normal;font-size:34px;width:88px;text-align:center;border-right:2px solid var(--bd);line-height:88px}
+.big span{padding-left:18px;font-weight:800;letter-spacing:.05em}
+.ctr{min-height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:20px 8px;background:linear-gradient(var(--gl) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,var(--gl) 1px,transparent 1px) 0 0/28px 28px}
+.ctr img{width:104px;height:104px;margin:0 auto 14px}
+.ctr h1{font-size:34px;font-weight:800;letter-spacing:.08em}
+.ctr p{margin:6px 0 40px}
+.or{margin:14px;color:var(--mu)}
+.pf{text-align:center}
+.pf .av{margin:0 auto 8px;cursor:pointer}
+.pf h2{font-size:22px}
+.pf a{color:var(--pr);cursor:pointer;font-size:14px;margin-left:6px}
+.pf .pill{display:inline-block;margin:10px 0}
+.er{color:var(--rd);min-height:1.4em;margin-top:8px;font-weight:600}
+.msg{max-width:80%;margin:8px 0;display:flex;flex-direction:column}
+.msg b{font-size:12px;color:var(--mu)}
+.msg span{background:var(--cd);border:1px solid var(--bd);padding:8px 12px;border-radius:14px}
+.msg.me{margin-left:auto}
+.msg.me span{background:var(--pr);color:var(--pt);border-color:var(--pr)}
+.snd{padding:10px 12px;border-top:1px solid var(--bd);background:var(--cd)}
+.snd .btn{flex:none;width:auto;padding:11px 16px}
+#md{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-end;justify-content:center;z-index:9}
+#md[hidden]{display:none}
+.sheet{background:var(--cd);width:100%;max-width:430px;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0;max-height:90%;overflow-y:auto}
+.sheet h3{margin-bottom:8px}
+.sheet .btn{margin-top:14px}
+.pr{text-align:center;margin-bottom:6px}
+.pr b{font-size:40px;font-weight:800}
+.tb{width:100%;border-collapse:collapse;margin:12px 0 18px}
+.tb th,.tb td{padding:10px 6px;border-bottom:1px solid var(--bd);text-align:center;font-size:14px}
+.tb th:first-child,.tb td:first-child{text-align:left}
+.tb th:last-child,.tb td:last-child{background:var(--gl);font-weight:600}
+.ok{color:var(--gr);font-weight:800}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="md" hidden></div>
+<script>
+const LOGO="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="24" fill="#1766C2"/><path d="M71 38A24.3 24.3 0 1 0 71 62" fill="none" stroke="#fff" stroke-width="13"/><circle cx="75.5" cy="50" r="6" fill="#F2B544"/></svg>');
+const ESP=["Estructuras","Geotecnia y Pavimentos","Costos y Presupuestos","Supervisión y Residencia","Hidráulica y Saneamiento","Seguridad y Salud (SST)","Otro"];
+const GR=["Estudiante (Últimos ciclos)","Bachiller","Egresado","Titulado","Colegiado CIP"];
+const RU=["Constructora / Contratista","Consultora / Supervisora","Inmobiliaria","Entidad Pública","Otro"];
+const FP=[["nombre","Nombre completo"],["correo","Correo","email"],["tel","Teléfono","tel"],["grado","Grado académico",GR],["esp","Especialidad",ESP,"Qué otra especialidad..."],["func","¿Qué función desempeña?"]];
+const FE=[["nombre","Nombre de la empresa"],["ruc","RUC (Opcional)","text",0,1],["contacto","Persona de contacto"],["correo","Correo de la empresa","email"],["tel","Teléfono de la empresa","tel"],["rubro","Rubro",RU,"Qué otro rubro..."],["esp","Especialidad que busca",ESP,"Qué otra especialidad..."],["vac","Vacantes estimadas al año","number"]];
+const mk=(id,nombre,grado,esp,r,c,sobre,trab)=>({id,nombre,grado,esp,sum:r*c,cnt:c,sobre,trab,st:0,rated:0,foto:null});
+const PEOPLE=[
+mk(1,"Ing. Carlos Paz","Colegiado CIP","Estructuras",4.8,23,"Diseño de edificaciones de concreto armado con más de 10 años de experiencia en La Libertad.","Edificio multifamiliar, puente peatonal, vivienda unifamiliar."),
+mk(2,"Ing. Lucía Gil","Titulado","Geotecnia y Pavimentos",4.9,31,"Estudios de suelos y diseño de pavimentos para obras viales y urbanas.","Pavimento de la Av. Industrial, estudio de suelos de 40 viviendas."),
+mk(3,"Ing. Marco Muñoz","Titulado","Hidráulica y Saneamiento",3.8,12,"Redes de agua y alcantarillado para habilitaciones urbanas.","Red de agua potable en Huanchaco, planta de tratamiento."),
+mk(4,"Ing. Juan Rojas","Bachiller","Seguridad y Salud (SST)",3.2,9,"Prevención de riesgos y planes SST para obras de mediana escala.","Plan SST de edificio de 6 pisos."),
+mk(5,"Ing. Rosa Ramos","Colegiado CIP","Supervisión y Residencia",4.5,18,"Residencia y supervisión de obras públicas y privadas.","Residente de colegio en Trujillo, supervisión de losa deportiva."),
+mk(6,"Ing. Diego Soto","Titulado","Costos y Presupuestos",4.1,15,"Presupuestos, metrados y valorizaciones de obra.","Presupuesto de centro comercial, valorizaciones mensuales.")];
+const S={v:"inicio",u:null,users:[],rt:"p",tab:"a",f:[],q:"",pid:null,back:"contrata",
+noti:[{t:"Bienvenido a CONTRATASQA. Completa tu perfil para recibir más propuestas.",r:0},{t:"Ing. Lucía Gil actualizó su perfil.",r:0}],
+posts:[{t:"Ing. residente, Trujillo",d:"Se busca ingeniero residente para obra de vivienda multifamiliar. Inicio inmediato.",a:"Constructora Libertad"},{t:"Evento: charla de seguridad en obra",d:"Cupos: 5. Escríbenos para reservar.",a:"Colegio de Ingenieros"}],
+msgs:[{a:"Ing. Paz",t:"Buenos días, ¿alguien conoce un proveedor de acero en Trujillo?"},{a:"Ing. Muñoz",t:"Yo trabajo con uno, te paso el contacto."},{a:"Ing. Juan",t:"Mañana hay charla de seguridad en obra."}]};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const avg=p=>p.cnt?(p.sum/p.cnt).toFixed(1):"0.0";
+const subt=p=>p.sub||(p.grado||p.rubro)+", "+p.esp;
+const SIL='<svg viewBox="0 0 24 24" width="60%" height="60%" fill="#fff"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z"/></svg>';
+const av=(p,s)=>`<span class="av" style="width:${s}px;height:${s}px">${p.foto?`<img src="${p.foto}" alt="" style="width:100%;height:100%;object-fit:cover">`:SIL}</span>`;
+const bk=t=>`<button class="bk" onclick="go('${t}')">‹ Atrás</button>`;
+const hd=(t,b)=>`<header>${b||""}${t}</header>`;
+const navb=()=>`<nav><button class="${S.v=="home"?"on":""}" onclick="go('home')" aria-label="Inicio">🏠</button><button class="${S.v=="perfil"?"on":""}" onclick="go('perfil')" aria-label="Perfil">👤</button></nav>`;
+function modal(h){const m=$("#md");m.innerHTML=h?`<div class="sheet">${h}</div>`:"";m.hidden=!h}
+$("#md").onclick=e=>{if(e.target.id=="md")modal()};
+const fields=t=>(t=="p"?FP:FE).map(([k,l,ty,o])=>`<label for="f_${k}">${l}</label>`+(Array.isArray(ty)?`<select id="f_${k}" onchange="$('#o_${k}').hidden=this.value!='Otro'"><option value="">Seleccionar...</option>${ty.map(x=>`<option>${x}</option>`).join("")}</select><input id="o_${k}" hidden placeholder="${o}" style="margin-top:8px">`:`<input id="f_${k}" type="${ty||"text"}">`)).join("");
+function reg(){const F=S.rt=="p"?FP:FE,u={t:S.rt,sum:0,cnt:0,sobre:"",trab:"",foto:null,st:0,rated:0};let ok=1;
+F.forEach(([k,,,,op])=>{let v=$("#f_"+k).value.trim();if(v=="Otro")v=$("#o_"+k).value.trim();u[k]=v;if(!v&&!op)ok=0});
+if(!ok)return $("#er").textContent="Completa todos los campos obligatorios.";
+u.correo=u.correo.toLowerCase();S.users.push(u);S.u=u;go("home")}
+function login(){const c=$("#lg").value.trim().toLowerCase(),u=S.users.find(x=>x.correo==c);
+if(!u)return $("#er").textContent="No encontramos esa cuenta. Regístrate primero.";S.u=u;go("home")}
+const plist=()=>{const q=S.q.toLowerCase(),r=PEOPLE.filter(p=>(!S.f.length||S.f.includes(p.esp))&&(p.nombre+p.esp).toLowerCase().includes(q));
+return r.map(p=>`<div class="card"><div class="row" onclick="ver(${p.id})" style="cursor:pointer">${av(p,52)}<div><b>${p.nombre}</b><div class="mu">${p.esp}</div></div><span class="pill">${avg(p)}</span></div>${hb(p)}</div>`).join("")||'<p class="mu">No hay profesionales con esa búsqueda. Prueba otro nombre o quita los filtros.</p>'};
+const hb=p=>`<button class="btn s ${p.st==1?"gy":"gr"}" onclick="hire(${p.id})">${p.st==1?"Contratado":"Contratar"}</button>`;
+function hire(id){const p=PEOPLE.find(x=>x.id==id);if(p.st==1)return;p.st=1;p.rated=0;S.noti.unshift({t:"Contrataste a "+p.nombre+".",r:0});render()}
+function fin(id){PEOPLE.find(x=>x.id==id).st=2;render()}
+function rate(id,v){const p=PEOPLE.find(x=>x.id==id);if(p.rated)p.sum+=v-p.rated;else{p.sum+=v;p.cnt++}p.rated=v;render()}
+function ver(id){S.pid=id;S.back=S.v;go("ver")}
+function fil(){modal(`<h3>Filtrar por especialidad</h3>${ESP.map(e=>`<label class="ck"><input type="checkbox" value="${e}" ${S.f.includes(e)?"checked":""}> ${e}</label>`).join("")}<button class="btn" onclick="S.f=[...document.querySelectorAll('#md input:checked')].map(i=>i.value);modal();render()">Aceptar</button>`)}
+function pub(){modal(`<h3>Nuevo anuncio</h3><label for="pt">Título</label><input id="pt"><label for="pd">Descripción</label><textarea id="pd" rows="4"></textarea><button class="btn gr" onclick="doPub()">Publicar</button>`)}
+function doPub(){const t=$("#pt").value.trim(),d=$("#pd").value.trim();if(!t)return $("#pt").focus();S.posts.unshift({t,d,a:S.u.nombre});modal();render()}
+function send(){const i=$("#mi"),t=i.value.trim();if(!t)return;S.msgs.push({a:S.u.nombre,t,me:1});render();$("#mi").focus()}
+function edit(k){$("#e_"+k).outerHTML=`<input id="e_${k}" value="${esc(k=="sub"?subt(S.u):S.u[k])}" onblur="if(this.dataset.d)return;this.dataset.d=1;S.u['${k}']=this.value.trim()||S.u['${k}'];render()" onkeydown="if(event.key=='Enter')this.blur()" style="text-align:center;margin:4px 0">`;$("#e_"+k).focus()}
+function foto(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{S.u.foto=r.result;render()};r.readAsDataURL(f)}
+const ed=(k,v,own)=>`<span id="e_${k}">${esc(v)}</span>${own?`<a onclick="edit('${k}')" role="button" tabindex="0">(Editar)</a>`:""}`;
+const prof=(p,own)=>`<div class="pf"><div onclick="${own?"$('#ph').click()":""}">${av(p,110)}</div>${own?`<input type="file" id="ph" accept="image/*" hidden onchange="foto(this)"><small class="mu">Toca la foto para cambiarla</small>`:""}
+<h2>${ed("nombre",p.nombre,own)}</h2><p class="mu">${ed("sub",subt(p),own)}</p><span class="pill">${avg(p)} (${p.cnt} reseñas)</span>${p.premium?'<span class="pill" style="background:var(--pr);color:var(--pt);margin-left:6px">⭐ Premium</span>':""}</div>
+<label>Sobre mí</label>${own?`<textarea rows="4" placeholder="Describe tu experiencia..." oninput="S.u.sobre=this.value">${esc(p.sobre)}</textarea>`:`<p>${esc(p.sobre)||"Sin descripción."}</p>`}
+<label>Trabajos</label>${own?`<textarea rows="4" placeholder="Cuenta qué obras o proyectos realizaste..." oninput="S.u.trab=this.value">${esc(p.trab)}</textarea>`:`<p>${esc(p.trab)||"Sin trabajos registrados."}</p>`}`;
+const V={
+inicio:()=>({m:`<div class="ctr"><img src="${LOGO}" alt="Logo de CONTRATASQA"><h1>CONTRATASQA</h1><p class="mu">Contratación Directa y Rápida de Ingenieros</p><button class="btn" onclick="go('login')">INICIAR SESIÓN</button><div class="or">o</div><button class="btn o" onclick="go('registro')">REGISTRARSE</button></div>`}),
+login:()=>({h:hd("INICIAR SESIÓN",bk("inicio")),m:`<label for="lg">Correo</label><input id="lg" type="email" placeholder="tu@correo.com"><p id="er" class="er"></p><button class="btn" style="margin-top:12px" onclick="login()">Iniciar sesión</button>`}),
+registro:()=>({h:hd("LISTA DE ESPERA",bk("inicio")),m:`<label>Soy</label><div class="row"><button class="btn ${S.rt=="p"?"":"o"}" onclick="S.rt='p';render()">Profesional</button><button class="btn ${S.rt=="e"?"":"o"}" onclick="S.rt='e';render()">Empresa</button></div>${fields(S.rt)}<p id="er" class="er"></p><button class="btn" style="margin:12px 0 24px" onclick="reg()">${S.rt=="p"?"Registrarse":"Registrar empresa"}</button>`}),
+home:()=>{const n=S.noti.filter(x=>!x.r).length;return{h:`<header><img class="lg" src="${LOGO}" alt="">CONTRATASQA<button class="bell" onclick="go('noti')" aria-label="Notificaciones">🔔${n?`<b class="bdg">${n}</b>`:""}</button></header>`,m:[["🤝","CONTRATACIÓN","contrata"],["📝","GESTIÓN DEL PERSONAL","gestion"],["💬","FORO","foro"],["👥","COMUNIDADES","comun"],["⭐","PREMIUM","premium"]].map(([i,t,v])=>`<button class="big" onclick="go('${v}')"><i>${i}</i><span>${t}</span></button>`).join(""),n:1}},
+contrata:()=>({h:hd("CONTRATACIÓN"),m:`<input placeholder="Buscar..." aria-label="Buscar" value="${esc(S.q)}" oninput="S.q=this.value;$('#ls').innerHTML=plist()"><div class="row" style="margin:10px 0"><button class="chip" onclick="S.f=[];render()">Todos</button><button class="chip ${S.f.length?"on":""}" onclick="fil()">Filtros ⚙️${S.f.length?" ("+S.f.length+")":""}</button></div><div id="ls">${plist()}</div>`,n:1}),
+gestion:()=>{const L=PEOPLE.filter(p=>p.st==(S.tab=="a"?1:2));return{h:hd("MI EQUIPO"),m:`<div class="row" style="justify-content:center;margin-bottom:14px"><button class="chip ${S.tab=="a"?"on":""}" onclick="S.tab='a';render()">Activos</button><button class="chip ${S.tab=="p"?"on":""}" onclick="S.tab='p';render()">Pasados</button></div>`+(L.map(p=>`<div class="card"><div class="row">${av(p,52)}<div><b>${p.nombre}</b><div class="mu">${p.esp}</div></div><span class="pill">${avg(p)}</span></div><div class="st" aria-label="Valorar">${[1,2,3,4,5].map(i=>`<span class="${i<=p.rated?"f":""}" onclick="rate(${p.id},${i})">★</span>`).join("")}</div>${S.tab=="a"?`<button class="btn rd s" style="margin-top:0" onclick="fin(${p.id})">Terminar contrato</button>`:""}</div>`).join("")||`<p class="mu">${S.tab=="a"?"Aún no tienes personal activo. Contrata desde la sección Contratación.":"Todavía no hay contratos terminados."}</p>`),n:1}},
+foro:()=>({h:hd("ANUNCIOS"),m:`<button class="btn gr" onclick="pub()">＋ Publicar</button><div style="height:14px"></div>`+S.posts.map(x=>`<div class="card"><b>${esc(x.t)}</b><p>${esc(x.d)}</p><small class="mu">Publicado por ${esc(x.a)}</small></div>`).join(""),n:1}),
+comun:()=>({h:hd("COMUNIDADES"),m:S.msgs.map(m=>`<div class="msg ${m.me?"me":""}">${m.me?"":`<b>${esc(m.a)}</b>`}<span>${esc(m.t)}</span></div>`).join(""),f:`<div class="row snd"><input id="mi" placeholder="Escribe un mensaje..." aria-label="Mensaje" onkeydown="if(event.key=='Enter')send()"><button class="btn" onclick="send()" aria-label="Enviar">➤</button></div>`,n:1}),
+noti:()=>{const h=S.noti.map(n=>`<div class="card">${esc(n.t)}</div>`).join("");S.noti.forEach(n=>n.r=1);return{h:hd("NOTIFICACIONES",bk("home")),m:h,n:1}},
+premium:()=>{const on=S.u.premium;return{h:hd("PREMIUM",bk("home")),m:`<div class="pr"><b>S/ 39</b><span class="mu"> al mes</span><p class="mu">Contrata con más herramientas, más visibilidad y mejor seguimiento.</p></div><table class="tb"><tr><th>Función</th><th>Gratuito</th><th>Premium</th></tr>${PF.map(([a,b,c])=>`<tr><td>${a}</td><td>${cl(b)}</td><td>${cl(c)}</td></tr>`).join("")}</table>`+(on?`<p class="er" style="color:var(--gr)">Tu plan Premium está activo.</p><button class="btn o" onclick="S.u.premium=0;render()">Cancelar suscripción</button>`:`<button class="btn gr" onclick="subs()">Suscribirme por S/ 39 al mes</button>`),n:1}},
+perfil:()=>({h:hd("Perfil",bk("home")),m:prof(S.u,1)+`<button class="btn o" style="margin:24px 0" onclick="S.u=null;go('inicio')">Cerrar sesión</button>`,n:1}),
+ver:()=>{const p=PEOPLE.find(x=>x.id==S.pid);return{h:hd("Perfil",bk(S.back)),m:prof(p,0)+`<div style="margin-top:20px">${hb(p)}</div>`,n:1}}};
+const PF=[["Registro y perfil","✓","✓"],["Ver perfiles de profesionales","Básico","Completo"],["Contratar profesionales","Hasta 3 activos","Ilimitado"],["Anuncios en el foro","1 al mes","Ilimitados"],["Comunidades","✓","✓"],["Comparar candidatos","—","✓"],["Evaluaciones técnicas","—","✓"],["Portafolios verificados","Básico","Completo"],["Seguimiento de adaptación","—","✓"],["Insignia Premium en tu perfil","—","✓"],["Soporte prioritario","—","✓"]];
+const cl=v=>v=="✓"?'<span class="ok">✓</span>':v;
+function subs(){S.u.premium=1;S.noti.unshift({t:"Tu plan Premium está activo. Gracias por suscribirte.",r:0});render()}
+let last;
+function render(){const v=V[S.v](),m=$("main"),y=m&&last==S.v?m.scrollTop:0;last=S.v;
+$("#app").innerHTML=(v.h||"")+`<main>${v.m}</main>`+(v.f||"")+(v.n?navb():"");
+$("main").scrollTop=S.v=="comun"?1e6:y}
+function go(v){S.v=v;render()}
+render();
+</script>
+</body>
+</html>
